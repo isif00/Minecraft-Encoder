@@ -1,0 +1,5 @@
+name: MinecraftEncoder
+version: '${project.version}'
+author: isifOO
+main: io.github.isif00.minecraftencoder.MinecraftEncoder
+api-version: '1.20'
