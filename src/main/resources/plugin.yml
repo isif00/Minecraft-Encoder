@@ -3,3 +3,7 @@ version: '${project.version}'
 author: isifOO
 main: io.github.isif00.minecraftencoder.MinecraftEncoder
 api-version: '1.20'
+commands:
+    hello:
+        description: reply with hello world
+        usage: /<command>
