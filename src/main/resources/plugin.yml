@@ -7,3 +7,6 @@ commands:
     hello:
         description: reply with hello world
         usage: /<command>
+    toblocks:
+        description: encode a file
+        usage: /<command>
