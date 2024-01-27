@@ -10,12 +10,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 public final class MinecraftEncoder extends JavaPlugin {
 
-    public static final int MATERIAL_LENGTH = Material.values().length;
 
     @Override
     public void onEnable() {
@@ -35,17 +37,39 @@ public final class MinecraftEncoder extends JavaPlugin {
     }
 
     // create an array to store the block types
-    public Material[] lookUpTable(){
-        Material[] materials = new Material[MATERIAL_LENGTH];
-        for (int i = 0; i < MATERIAL_LENGTH; i++) {
-            getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + Material.values()[i].toString());
-            materials[i] = Material.values()[i];
+    public Material[] lookUpTable() {
+        Material[] materials = new Material[200];
+        for (int i = 0; i < 200; i++) {
+            if (Material.values()[i] == Material.AIR
+                    || Material.values()[i] == Material.SAND
+                    || Material.values()[i] == Material.WATER
+                    || Material.values()[i] == Material.LAVA
+                    || Material.values()[i] == Material.SUSPICIOUS_GRAVEL
+                    || Material.values()[i] == Material.SUSPICIOUS_SAND
+                    || Material.values()[i] == Material.OAK_SAPLING
+                    || Material.values()[i] == Material.SPRUCE_SAPLING
+                    || Material.values()[i] == Material.BIRCH_SAPLING
+                    || Material.values()[i] == Material.JUNGLE_SAPLING
+                    || Material.values()[i] == Material.ACACIA_SAPLING
+                    || Material.values()[i] == Material.CHERRY_SAPLING
+                    || Material.values()[i] == Material.DARK_OAK_SAPLING
+                    || Material.values()[i] == Material.BEDROCK
+            ) {
+                materials[i] = Material.values()[i+1];
+                getServer().getConsoleSender().sendMessage(ChatColor.GREEN + String.valueOf(i) + " is " + ChatColor.DARK_PURPLE + materials[i].toString());
+            } else {
+                materials[i] = Material.values()[i];
+                getServer().getConsoleSender().sendMessage(ChatColor.GREEN + String.valueOf(i) + " is " + ChatColor.DARK_PURPLE + materials[i].toString());
+            }
         }
-        return materials;
+        Set<Material> setMaterials = new HashSet<>(Arrays.asList(materials));
+        return setMaterials.toArray(new Material[0]);
     }
 
+
+
     public static byte[] getBytes() throws IOException {
-        File file = new File("/home/isifoo/Projects/Others/minecraftEncoder/plugins/Server/eula.txt");
+        File file = new File("/home/isifoo/Projects/Others/minecraftEncoder/plugins/Server/server.properties");
 
         if (!file.exists()) {
             throw new FileNotFoundException("File not found: " + file.getPath());
